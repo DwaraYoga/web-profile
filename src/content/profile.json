@@ -1,0 +1,40 @@
+{
+  "name": "Dwara Yoga Pradana",
+  "title": "Information Technology Graduate - UNY",
+  "role": "Full-Stack Web & AI Developer",
+  "bio": "Lulusan S1 Teknologi Informasi Universitas Negeri Yogyakarta (IPK 3.83). Berpengalaman dalam pengembangan aplikasi web (React, Laravel) dan implementasi Artificial Intelligence (Faster R-CNN, Computer Vision).",
+  "avatar": "/images/profile-dwara.jpg",
+  "cvUrl": "/cv-dwara-yoga.pdf",
+  "education": {
+    "university": "Universitas Negeri Yogyakarta (UNY)",
+    "degree": "S1 Teknologi Informasi",
+    "gpa": "(3.83 / 4.00)",
+    "period": "2020 - 2026",
+    "thesis": "Pengembangan Web Diagnosis Penyakit Gigi Menggunakan Algoritma Faster Region Convolutional Neural Network"
+  },
+  "contact": {
+    "email": "dwaray12@gmail.com",
+    "location": "Yogyakarta, Indonesia",
+    "status": "Available for Work / Open for Opportunities",
+    "github": "https://github.com/DwaraYoga",
+    "linkedin": "https://www.linkedin.com/in/dwara-yoga/"
+  },
+  "skillCategories": [
+    {
+      "name": "Web Development",
+      "skills": ["Astro.js", "React.js", "TypeScript", "Tailwind CSS", "Node.js", "Laravel"]
+    },
+    {
+      "name": "AI & Computer Vision",
+      "skills": ["Python", "Faster R-CNN", "PyTorch", "OpenCV", "TensorFlow", "Deep Learning"]
+    },
+    {
+      "name": "Database & Storage",
+      "skills": ["MySQL", "Astro Content Collections", "JSON DB"]
+    },
+    {
+      "name": "DevOps & Tools",
+      "skills": ["Git & GitHub", "Docker", "Personal Home Server", "VS Code", "Linux", "Antigravity"]
+    }
+  ]
+}

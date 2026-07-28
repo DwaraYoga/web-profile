@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: #ffffff;
+    color: #1a1a1a;
+    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbar in NVIDIA style */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #76b900;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #5a8d00;
+}
+
+/* NVIDIA Utilities */
+.corner-square {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: #76b900;
+}
+
+.nvidia-section-dark {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.nvidia-section-light {
+  background-color: #ffffff;
+  color: #1a1a1a;
+}

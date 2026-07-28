@@ -1,0 +1,205 @@
+---
+import { ExternalLink, Sparkles, ArrowRight } from 'lucide-react';
+import GithubIcon from './GithubIcon.astro';
+
+export interface ProjectItem {
+  slug: string;
+  data: {
+    title: string;
+    description: string;
+    year: string;
+    tech_stack: string[];
+    featured?: boolean;
+    category?: string;
+    demo_url?: string;
+    github_url?: string;
+    image?: string;
+  };
+}
+
+interface Props {
+  projects: ProjectItem[];
+}
+
+const { projects } = Astro.props;
+const categories = ['Semua', ...Array.from(new Set(projects.map((p) => p.data.category || 'Web Development')))];
+---
+
+<section id="projects" class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-6 relative z-10">
+    
+    {/* Section Header */}
+    <div class="flex flex-col items-center text-center space-y-3 mb-16">
+      <span class="text-xs font-bold uppercase tracking-wider text-[#757575]">
+        SHOWCASE PORTOFOLIO
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-black">
+        Proyek & Hasil Karya
+      </h2>
+      <p class="text-[#757575] max-w-xl text-sm sm:text-base">
+        Kumpulan aplikasi web cerdas dan penelitian Artificial Intelligence yang telah dipublikasikan.
+      </p>
+    </div>
+
+    {/* Category Filter */}
+    <div class="flex items-center justify-center flex-wrap gap-2.5 mb-16">
+      {categories.map((cat) => (
+        <button
+          data-project-filter={cat}
+          class={`project-filter-btn px-5 py-2.5 rounded-[2px] text-sm font-bold transition-colors cursor-pointer border ${
+            cat === 'Semua'
+              ? 'bg-black text-white border-black'
+              : 'bg-transparent text-[#1a1a1a] border-[#cccccc] hover:bg-[#f7f7f7]'
+          }`}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    {/* Zig-Zag Alternating Layout */}
+    <div class="space-y-16">
+      {projects.map((project, index) => {
+        const isEven = index % 2 === 0;
+        const projectCategory = project.data.category || 'Web Development';
+
+        return (
+          <div
+            data-project-category={projectCategory}
+            class="project-card-row relative p-8 sm:p-10 rounded-[2px] bg-white border border-[#cccccc]"
+          >
+            {/* Corner Square */}
+            <div class="absolute -top-[1px] -right-[1px] w-[12px] h-[12px] bg-[#76b900] z-10"></div>
+
+            <div class={`grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center ${
+              isEven ? '' : 'lg:flex-row-reverse'
+            }`}>
+              
+              {/* Image Column */}
+              <div class={`lg:col-span-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+                <div class="relative rounded-[2px] overflow-hidden border border-[#cccccc] bg-white">
+                  <img
+                    src={project.data.image || '/images/web-diagnosis-gigi.jpg'}
+                    alt={project.data.title}
+                    class="w-full h-72 sm:h-80 object-cover"
+                  />
+                  {/* Featured Badge */}
+                  {project.data.featured && (
+                    <span class="absolute top-4 left-4 px-3 py-1.5 rounded-[2px] bg-[#76b900] text-black text-xs font-bold flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      <span>Featured Project</span>
+                    </span>
+                  )}
+
+                  <span class="absolute bottom-4 right-4 text-xs text-[#1a1a1a] font-bold px-3 py-1 bg-[#f7f7f7] rounded-[2px] border border-[#cccccc]">
+                    {project.data.year}
+                  </span>
+                </div>
+              </div>
+
+              {/* Content Column */}
+              <div class={`lg:col-span-6 space-y-5 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div class="flex items-center gap-3">
+                  <span class="px-3 py-1 text-xs uppercase font-bold text-[#1a1a1a] bg-[#f7f7f7] border border-[#cccccc] rounded-[2px]">
+                    {projectCategory}
+                  </span>
+                </div>
+
+                <h3 class="text-2xl sm:text-3xl font-bold text-black hover:text-[#76b900] transition-colors">
+                  <a href={`/projects/${project.slug}`} class="flex items-center gap-2">
+                    <span>{project.data.title}</span>
+                  </a>
+                </h3>
+
+                <p class="text-[#1a1a1a] text-base leading-relaxed">
+                  {project.data.description}
+                </p>
+
+                {/* Tech Stack List */}
+                <div class="flex flex-wrap gap-2 pt-2">
+                  {project.data.tech_stack.map((tech) => (
+                    <span
+                      class="px-3 py-1 rounded-[2px] text-xs font-bold bg-[#f7f7f7] text-[#1a1a1a] border border-[#cccccc]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Action Buttons */}
+                <div class="flex flex-wrap items-center gap-4 pt-4 border-t border-[#cccccc]">
+                  {project.data.demo_url ? (
+                    <a
+                      href={project.data.demo_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex items-center gap-2 px-5 py-2.5 text-xs font-bold bg-[#76b900] hover:bg-[#5a8d00] text-black rounded-[2px] transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                      <span>Live Web / Demo</span>
+                    </a>
+                  ) : (
+                    <a
+                      href={`/projects/${project.slug}`}
+                      class="flex items-center gap-2 px-5 py-2.5 text-xs font-bold text-[#76b900] hover:text-[#5a8d00] transition-colors"
+                    >
+                      <span>Rincian Proyek</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  )}
+
+                  {project.data.github_url && (
+                    <a
+                      href={project.data.github_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="flex items-center gap-2 px-5 py-2.5 text-xs font-bold bg-transparent hover:bg-[#f7f7f7] text-black rounded-[2px] border border-[#cccccc] transition-colors"
+                    >
+                      <GithubIcon class="w-4 h-4" />
+                      <span>Source Code</span>
+                    </a>
+                  )}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.project-filter-btn');
+    const projectCards = document.querySelectorAll('.project-card-row');
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetCategory = btn.getAttribute('data-project-filter');
+
+        // Reset filter button styles
+        filterBtns.forEach((b) => {
+          b.classList.remove('bg-black', 'text-white', 'border-black');
+          b.classList.add('bg-transparent', 'text-[#1a1a1a]', 'border-[#cccccc]', 'hover:bg-[#f7f7f7]');
+        });
+
+        // Highlight active button
+        btn.classList.add('bg-black', 'text-white', 'border-black');
+        btn.classList.remove('bg-transparent', 'text-[#1a1a1a]', 'border-[#cccccc]', 'hover:bg-[#f7f7f7]');
+
+        // Filter projects
+        projectCards.forEach((card) => {
+          const cardCat = card.getAttribute('data-project-category');
+          if (targetCategory === 'Semua' || cardCat === targetCategory) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      });
+    });
+  });
+</script>

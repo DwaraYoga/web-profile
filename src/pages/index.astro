@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import AboutEducation from '../components/AboutEducation.astro';
+import SkillsSection from '../components/SkillsSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import CertificatesSection from '../components/CertificatesSection.astro';
+import ContactFooter from '../components/ContactFooter.astro';
+import PdfModal from '../components/PdfModal.astro';
+import profileData from '../content/profile.json';
+import { getCollection } from 'astro:content';
+
+const rawProjects = await getCollection('projects');
+const projects = rawProjects.map((p) => ({
+	...p,
+	slug: p.id.replace(/\.md$/, ''),
+}));
+
+const certificates = await getCollection('certificates');
+---
+
+<Layout
+	title={`${profileData.name} | ${profileData.title}`}
+	description={profileData.bio}
+>
+	<Navbar />
+
+	<main class="w-full bg-white">
+		<Hero profile={profileData} />
+		<AboutEducation education={profileData.education} />
+		<SkillsSection categories={profileData.skillCategories} />
+		<ProjectsSection projects={projects} />
+		<CertificatesSection certificates={certificates} />
+	</main>
+
+	<ContactFooter contact={profileData.contact} name={profileData.name} />
+	<PdfModal />
+</Layout>

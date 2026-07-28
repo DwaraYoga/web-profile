@@ -1,0 +1,112 @@
+---
+import { Award, Eye, ExternalLink, ShieldCheck } from 'lucide-react';
+
+export interface CertificateItem {
+  id: string;
+  data: {
+    title: string;
+    issuer: string;
+    year: string;
+    skills: string[];
+    pdf_path: string;
+    credential_url?: string;
+  };
+}
+
+interface Props {
+  certificates: CertificateItem[];
+}
+
+const { certificates } = Astro.props;
+---
+
+<section id="certificates" class="py-16 bg-[#f7f7f7]">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    {/* Section Header */}
+    <div class="flex flex-col items-center text-center space-y-3 mb-16">
+      <span class="text-xs font-bold uppercase tracking-wider text-[#757575]">
+        SERTIFIKASI & LISENSI
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-bold text-black">
+        Sertifikat Kompetensi
+      </h2>
+      <p class="text-[#757575] max-w-xl text-sm sm:text-base">
+        Bukti keahlian profesional dan penyelesaian program sertifikasi industri.
+      </p>
+    </div>
+
+    {/* Certificates Grid */}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {certificates.map((cert) => (
+        <div
+          class="relative p-6 rounded-[2px] bg-white border border-[#cccccc] flex flex-col justify-between"
+        >
+          {/* Corner Square */}
+          <div class="absolute -top-[1px] -right-[1px] w-[12px] h-[12px] bg-[#76b900] z-10"></div>
+
+          <div>
+            {/* Header Badge */}
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div class="flex items-center gap-2">
+                <span class="text-xs font-bold uppercase text-[#1a1a1a] px-3 py-1 rounded-[2px] bg-[#f7f7f7] border border-[#cccccc]">
+                  SERTIFIKAT
+                </span>
+                <Award className="w-5 h-5 text-[#76b900]" />
+              </div>
+              <span class="text-xs text-[#757575] font-bold">
+                {cert.data.year}
+              </span>
+            </div>
+
+            {/* Title & Issuer */}
+            <h3 class="text-xl font-bold text-black mb-2 leading-snug">
+              {cert.data.title}
+            </h3>
+            
+            <div class="flex items-center gap-1.5 text-sm text-[#757575] font-bold mb-5">
+              <ShieldCheck className="w-4 h-4 text-[#757575]" />
+              <span>{cert.data.issuer}</span>
+            </div>
+
+            {/* Skills tags */}
+            <div class="flex flex-wrap gap-1.5 mb-6">
+              {cert.data.skills.map((skill) => (
+                <span
+                  class="px-3 py-1 text-[11px] font-bold bg-[#f7f7f7] text-[#1a1a1a] rounded-[2px] border border-[#cccccc]"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div class="pt-4 border-t border-[#cccccc] flex items-center justify-between gap-3">
+            <button
+              data-open-pdf={cert.data.pdf_path}
+              data-pdf-title={cert.data.title}
+              class="flex-1 flex items-center justify-center gap-2 py-2.5 px-4 text-xs font-bold bg-[#76b900] hover:bg-[#5a8d00] text-black rounded-[2px] transition-colors cursor-pointer"
+            >
+              <Eye className="w-4 h-4" />
+              <span>Pratinjau PDF</span>
+            </button>
+
+            {cert.data.credential_url && (
+              <a
+                href={cert.data.credential_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="p-2.5 text-[#757575] hover:text-black rounded-[2px] border border-[#cccccc] transition-colors flex items-center justify-center"
+                title="Verifikasi Credential Online"
+              >
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,117 @@
+---
+import { X, ExternalLink, Download, FileText } from 'lucide-react';
+---
+
+<div
+  id="pdf-modal"
+  class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 transition-opacity duration-300 hidden"
+>
+  <div
+    class="relative w-full max-w-4xl h-[85vh] bg-white border border-[#cccccc] rounded-[2px] flex flex-col overflow-hidden"
+    onclick="event.stopPropagation()"
+  >
+    {/* Header */}
+    <div class="flex items-center justify-between px-6 py-4 border-b border-[#cccccc] bg-[#f7f7f7]">
+      <div class="flex items-center gap-3">
+        <FileText className="w-6 h-6 text-[#76b900]" />
+        <div>
+          <h3 id="pdf-modal-title" class="text-lg font-bold text-black line-clamp-1">Pratinjau Dokumen PDF</h3>
+          <p class="text-sm text-[#757575]">Dokumen Resmi</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-3">
+        <a
+          id="pdf-modal-external"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="p-2 text-[#757575] hover:text-[#76b900] transition-colors"
+          title="Buka di tab baru"
+        >
+          <ExternalLink className="w-5 h-5" />
+        </a>
+        <a
+          id="pdf-modal-download"
+          href="#"
+          download
+          class="flex items-center gap-1.5 px-4 py-2 text-sm font-bold bg-[#76b900] text-black rounded-[2px] transition-colors hover:bg-[#5a8d00]"
+        >
+          <Download className="w-4 h-4" />
+          <span>Unduh</span>
+        </a>
+        <button
+          id="pdf-modal-close"
+          class="p-2 text-[#757575] hover:text-black transition-colors ml-2"
+          aria-label="Tutup modal"
+        >
+          <X className="w-5 h-5" />
+        </button>
+      </div>
+    </div>
+
+    {/* Content / PDF Viewer */}
+    <div class="flex-1 bg-[#f7f7f7] relative">
+      <iframe
+        id="pdf-modal-iframe"
+        src=""
+        class="w-full h-full border-0"
+        title="Dokumen PDF"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  window.openPdfModal = function(url, title) {
+    const modal = document.getElementById('pdf-modal');
+    const titleEl = document.getElementById('pdf-modal-title');
+    const externalEl = document.getElementById('pdf-modal-external');
+    const downloadEl = document.getElementById('pdf-modal-download');
+    const iframeEl = document.getElementById('pdf-modal-iframe');
+
+    if (modal && iframeEl) {
+      if (titleEl) titleEl.textContent = title || 'Pratinjau Dokumen PDF';
+      if (externalEl) externalEl.href = url;
+      if (downloadEl) downloadEl.href = url;
+      iframeEl.src = url + '#toolbar=0';
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closePdfModal = function() {
+    const modal = document.getElementById('pdf-modal');
+    const iframeEl = document.getElementById('pdf-modal-iframe');
+    if (modal) {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'unset';
+      if (iframeEl) iframeEl.src = '';
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const closeBtn = document.getElementById('pdf-modal-close');
+    const modal = document.getElementById('pdf-modal');
+
+    if (closeBtn) closeBtn.addEventListener('click', window.closePdfModal);
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) window.closePdfModal();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') window.closePdfModal();
+    });
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-open-pdf]');
+      if (btn) {
+        const url = btn.getAttribute('data-open-pdf');
+        const title = btn.getAttribute('data-pdf-title');
+        if (url) window.openPdfModal(url, title);
+      }
+    });
+  });
+</script>

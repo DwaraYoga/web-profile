@@ -1,0 +1,128 @@
+---
+import { Menu, X, Code2, FileText } from 'lucide-react';
+
+const navLinks = [
+  { name: 'Tentang', href: '#about' },
+  { name: 'Keahlian', href: '#skills' },
+  { name: 'Proyek', href: '#projects' },
+  { name: 'Sertifikat', href: '#certificates' },
+  { name: 'Kontak', href: '#contact' },
+];
+---
+
+<header id="navbar-header" class="fixed top-0 left-0 right-0 z-40 bg-black transition-all">
+  {/* Utility Bar */}
+  <div class="h-8 bg-black flex items-center justify-end px-6 border-b border-[#cccccc]/20">
+    <span class="text-white text-xs font-['Inter']">Yogyakarta, Indonesia</span>
+  </div>
+
+  {/* Primary Nav */}
+  <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between">
+    {/* Left: Brand */}
+    <a href="#" class="flex items-center gap-2 group">
+      <span class="font-bold text-white text-xl font-['Inter'] tracking-tight">
+        DWARA YOGA
+      </span>
+    </a>
+
+    {/* Center: Nav links */}
+    <nav class="hidden md:flex items-center gap-6">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm font-bold text-white hover:text-[#76b900] transition-colors font-['Inter']"
+        >
+          {link.name}
+        </a>
+      ))}
+    </nav>
+
+    {/* Right: CTA */}
+    <div class="hidden md:flex items-center">
+      <button
+        data-open-pdf="/cv-dwara-yoga.pdf"
+        data-pdf-title="Curriculum Vitae - Dwara Yoga Pradana"
+        class="bg-[#76b900] hover:bg-[#5a8d00] text-black font-bold text-sm px-6 py-2.5 rounded-[2px] transition-colors font-['Inter'] cursor-pointer"
+      >
+        Lihat CV
+      </button>
+    </div>
+
+    {/* Mobile Menu Button */}
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden text-white hover:text-[#76b900] transition-colors"
+      aria-label="Toggle Menu"
+    >
+      <Menu id="icon-menu-open" className="w-6 h-6" />
+      <X id="icon-menu-close" className="w-6 h-6 hidden" />
+    </button>
+  </div>
+
+  {/* Mobile Dropdown */}
+  <div
+    id="mobile-dropdown"
+    class="md:hidden hidden bg-black border-t border-[#cccccc]/20 h-screen w-full px-6 py-6 space-y-4"
+  >
+    <div class="flex flex-col space-y-4">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class="mobile-nav-item text-white hover:text-[#76b900] font-bold text-lg transition-colors font-['Inter']"
+        >
+          {link.name}
+        </a>
+      ))}
+    </div>
+    <div class="pt-6 border-t border-[#cccccc]/20 mt-6">
+      <button
+        data-open-pdf="/cv-dwara-yoga.pdf"
+        data-pdf-title="Curriculum Vitae - Dwara Yoga Pradana"
+        class="mobile-cv-btn w-full bg-[#76b900] text-black font-bold py-3 rounded-[2px] font-['Inter'] cursor-pointer"
+      >
+        Lihat CV Utama
+      </button>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('navbar-header');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const dropdown = document.getElementById('mobile-dropdown');
+    const iconOpen = document.getElementById('icon-menu-open');
+    const iconClose = document.getElementById('icon-menu-close');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) {
+        header?.classList.add('shadow-[0_4px_20px_rgba(0,0,0,0.5)]');
+      } else {
+        header?.classList.remove('shadow-[0_4px_20px_rgba(0,0,0,0.5)]');
+      }
+    });
+
+    if (menuBtn && dropdown) {
+      menuBtn.addEventListener('click', () => {
+        const isHidden = dropdown.classList.contains('hidden');
+        if (isHidden) {
+          dropdown.classList.remove('hidden');
+          iconOpen?.classList.add('hidden');
+          iconClose?.classList.remove('hidden');
+        } else {
+          dropdown.classList.add('hidden');
+          iconOpen?.classList.remove('hidden');
+          iconClose?.classList.add('hidden');
+        }
+      });
+
+      document.querySelectorAll('.mobile-nav-item, .mobile-cv-btn').forEach((item) => {
+        item.addEventListener('click', () => {
+          dropdown.classList.add('hidden');
+          iconOpen?.classList.remove('hidden');
+          iconClose?.classList.add('hidden');
+        });
+      });
+    }
+  });
+</script>
