@@ -1,13 +1,13 @@
 ---
 title: "Web Diagnosis Gigi (Faster R-CNN)"
-description: "Aplikasi web cerdas berbasis Deep Learning Faster R-CNN untuk mengidentifikasi dan memetakan kelainan atau diagnosis kesehatan gigi dari citra rontgen panoramik."
+description: "Aplikasi web cerdas berbasis Deep Learning Faster R-CNN untuk mengidentifikasi kelainan atau diagnosis kesehatan gigi dari citra foto."
 year: "2025"
 tech_stack: ["Python", "Faster R-CNN", "PyTorch", "Tailwind CSS", "Flask"]
 featured: true
 category: "AI & Machine Learning"
 demo_url: "https://diagnosis.dwarayoga.my.id"
 github_url: "https://github.com/DwaraYoga/diagnosis"
-image: "/images/web-diagnosis-gigi.jpg"
+image: "/images/web-diagnosis-gigi.png"
 ---
 
 ## Deskripsi Proyek

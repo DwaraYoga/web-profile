@@ -17,6 +17,12 @@ pnpm-debug.log*
 .env
 .env.production
 
+AGENTS.md
+CLAUDE.md
+DESIGN.md
+DESIGN-nvidia.md
+UI.md
+
 # macOS-specific files
 .DS_Store
 

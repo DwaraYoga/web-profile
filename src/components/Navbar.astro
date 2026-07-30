@@ -1,12 +1,31 @@
 ---
 import { Menu, X, Code2, FileText } from 'lucide-react';
+import profileData from '../content/profile.json';
+
+export interface Props {
+  profile?: {
+    name?: string;
+    title?: string;
+    role?: string;
+    bio?: string;
+    avatar?: string;
+    cvUrl?: string;
+    education?: {
+      university?: string;
+      degree?: string;
+      gpa?: string;
+    };
+  };
+}
+
+const { profile = profileData } = Astro.props;
 
 const navLinks = [
-  { name: 'Tentang', href: '#about' },
-  { name: 'Keahlian', href: '#skills' },
-  { name: 'Proyek', href: '#projects' },
-  { name: 'Sertifikat', href: '#certificates' },
-  { name: 'Kontak', href: '#contact' },
+  { name: 'Tentang', href: '/#about' },
+  { name: 'Keahlian', href: '/#skills' },
+  { name: 'Proyek', href: '/#projects' },
+  { name: 'Sertifikat', href: '/#certificates' },
+  { name: 'Kontak', href: '/#contact' },
 ];
 ---
 
@@ -19,7 +38,7 @@ const navLinks = [
   {/* Primary Nav */}
   <div class="h-16 max-w-7xl mx-auto px-6 flex items-center justify-between">
     {/* Left: Brand */}
-    <a href="#" class="flex items-center gap-2 group">
+    <a href="/" class="flex items-center gap-2 group">
       <span class="font-bold text-white text-xl font-['Inter'] tracking-tight">
         DWARA YOGA
       </span>
@@ -40,7 +59,7 @@ const navLinks = [
     {/* Right: CTA */}
     <div class="hidden md:flex items-center">
       <button
-        data-open-pdf="/cv-dwara-yoga.pdf"
+        data-open-pdf={profile?.cvUrl || profileData.cvUrl}
         data-pdf-title="Curriculum Vitae - Dwara Yoga Pradana"
         class="bg-[#76b900] hover:bg-[#5a8d00] text-black font-bold text-sm px-6 py-2.5 rounded-[2px] transition-colors font-['Inter'] cursor-pointer"
       >
@@ -76,7 +95,7 @@ const navLinks = [
     </div>
     <div class="pt-6 border-t border-[#cccccc]/20 mt-6">
       <button
-        data-open-pdf="/cv-dwara-yoga.pdf"
+        data-open-pdf={profile?.cvUrl || profileData.cvUrl}
         data-pdf-title="Curriculum Vitae - Dwara Yoga Pradana"
         class="mobile-cv-btn w-full bg-[#76b900] text-black font-bold py-3 rounded-[2px] font-['Inter'] cursor-pointer"
       >
@@ -87,12 +106,16 @@ const navLinks = [
 </header>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
+  const initNavbar = () => {
     const header = document.getElementById('navbar-header');
     const menuBtn = document.getElementById('mobile-menu-btn');
     const dropdown = document.getElementById('mobile-dropdown');
     const iconOpen = document.getElementById('icon-menu-open');
     const iconClose = document.getElementById('icon-menu-close');
+
+    if (window.scrollY > 20) {
+      header?.classList.add('shadow-[0_4px_20px_rgba(0,0,0,0.5)]');
+    }
 
     window.addEventListener('scroll', () => {
       if (window.scrollY > 20) {
@@ -124,5 +147,11 @@ const navLinks = [
         });
       });
     }
-  });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar);
+  } else {
+    initNavbar();
+  }
 </script>

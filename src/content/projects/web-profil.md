@@ -1,13 +1,13 @@
 ---
 title: "Personal Portfolio & Profile SSG"
-description: "Website portofolio berkecepatan tinggi dengan arsitektur Static Site Generation (SSG), Zod Content Collections, dan komponen interaktif React."
+description: "Website portofolio berkecepatan tinggi dengan arsitektur Static Site Generation (SSG), Zod Content Collections, dan komponen Astro."
 year: "2026"
 tech_stack: ["Astro.js", "Zod", "Vibe Coding"]
 featured: true
 category: "Web Development"
 demo_url: "https://dwarayoga.my.id"
 github_url: "https://github.com/dwarayoga/portfolio-astro"
-image: "/images/portfolio-astro.jpg"
+image: "/images/web-profil.png"
 ---
 
 ## Deskripsi Proyek

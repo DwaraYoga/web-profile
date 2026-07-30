@@ -24,7 +24,7 @@ const certificates = await getCollection('certificates');
 	title={`${profileData.name} | ${profileData.title}`}
 	description={profileData.bio}
 >
-	<Navbar />
+	<Navbar profile={profileData} />
 
 	<main class="w-full bg-white">
 		<Hero profile={profileData} />
