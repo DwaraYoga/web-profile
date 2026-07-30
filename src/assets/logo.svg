@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <!-- Nvidia Green Gradient -->
+    <linearGradient id="dy-nvidia-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#76B900" />  <!-- Nvidia Green -->
+      <stop offset="100%" stop-color="#00E676" /> <!-- Emerald Glow -->
+    </linearGradient>
+
+    <!-- Subtle Tech Glow -->
+    <filter id="nvidia-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Dark Obsidian Base Container -->
+  <rect width="200" height="200" rx="32" fill="#0B0E14" stroke="#1A2232" stroke-width="2" />
+
+  <!-- Monogram DY (Modern Tech Minimalist) -->
+  <g filter="url(#nvidia-glow)" fill="none" stroke="url(#dy-nvidia-grad)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- HURUF D (Sisi Kiri) -->
+    <path 
+      d="M 45 50 H 75 C 95 50, 105 65, 105 100 C 105 135, 95 150, 75 150 H 45 V 50 Z" 
+      stroke-width="12" 
+    />
+
+    <!-- HURUF Y (Sisi Kanan) -->
+    <!-- Cabang Atas Kiri & Kanan bertemu di tengah, lalu ditarik lurus ke bawah -->
+    <path 
+      d="M 120 50 L 138 90 M 156 50 L 138 90 V 150" 
+      stroke-width="12" 
+    />
+  </g>
+</svg>

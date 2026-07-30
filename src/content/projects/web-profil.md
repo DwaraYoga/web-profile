@@ -6,7 +6,7 @@ tech_stack: ["Astro.js", "Zod", "Vibe Coding"]
 featured: true
 category: "Web Development"
 demo_url: "https://dwarayoga.my.id"
-github_url: "https://github.com/dwarayoga/portfolio-astro"
+github_url: "https://github.com/DwaraYoga/web-profile"
 image: "/images/web-profil.png"
 ---
 
